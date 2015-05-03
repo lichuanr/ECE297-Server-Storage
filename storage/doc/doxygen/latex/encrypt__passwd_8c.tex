@@ -1,0 +1,59 @@
+\hypertarget{encrypt__passwd_8c}{\section{encrypt\-\_\-passwd.\-c File Reference}
+\label{encrypt__passwd_8c}\index{encrypt\-\_\-passwd.\-c@{encrypt\-\_\-passwd.\-c}}
+}
+
+
+This program implements a password encryptor.  
+
+
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}utils.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{encrypt__passwd_8c_ae5ad5cbeccaedc03a48d3c7eaa803e79}{void \hyperlink{encrypt__passwd_8c_ae5ad5cbeccaedc03a48d3c7eaa803e79}{print\-\_\-usage} ()}\label{encrypt__passwd_8c_ae5ad5cbeccaedc03a48d3c7eaa803e79}
+
+\begin{DoxyCompactList}\small\item\em Print the usage to stdout. \end{DoxyCompactList}\item 
+int \hyperlink{encrypt__passwd_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em This is the main file of the encryption part, which is used to generate the encrypted password. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This program implements a password encryptor. This file can build a stand-\/alone program, which can be used to generate encrypted password based on the original password 
+
+Definition in file \hyperlink{encrypt__passwd_8c_source}{encrypt\-\_\-passwd.\-c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{encrypt__passwd_8c_a0ddf1224851353fc92bfbff6f499fa97}{\index{encrypt\-\_\-passwd.\-c@{encrypt\-\_\-passwd.\-c}!main@{main}}
+\index{main@{main}!encrypt_passwd.c@{encrypt\-\_\-passwd.\-c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{encrypt__passwd_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+This is the main file of the encryption part, which is used to generate the encrypted password. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & The number of strings pointed to by argv \\
+\hline
+{\em argv\mbox{[}$\,$\mbox{]}} & An array of pointers to characters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if encrypted successfully, otherwise return -\/1 
+\end{DoxyReturn}
+
+
+Definition at line 30 of file encrypt\-\_\-passwd.\-c.
+
+
+
+References generate\-\_\-encrypted\-\_\-password(), and print\-\_\-usage().
+

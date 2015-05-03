@@ -1,0 +1,326 @@
+\hypertarget{storage_8c}{\section{storage.\-c File Reference}
+\label{storage_8c}\index{storage.\-c@{storage.\-c}}
+}
+
+
+This file contains the implementation of the storage server interface as specified in \hyperlink{storage_8h}{storage.\-h}.  
+
+
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$unistd.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$sys/types.\-h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\-h$>$}\\*
+{\ttfamily \#include $<$netdb.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}storage.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}utils.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}logger.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$errno.\-h$>$}\\*
+{\ttfamily \#include $<$ctype.\-h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{storage_8c_a27c35f95544a97bcfc19d15461ddf8c5}{Modify\-String} (char $\ast$char\-\_\-source)
+\begin{DoxyCompactList}\small\item\em This function is used for removing spaces. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{storage_8c_abc3751ffba629aad5a4b8c7c22a75e11}{storage\-\_\-connect} (const char $\ast$hostname, const int port)
+\begin{DoxyCompactList}\small\item\em This function is for connecting to the server from client side. \end{DoxyCompactList}\item 
+int \hyperlink{storage_8c_aa97b5545b3eefb5055a4e6febd375796}{storage\-\_\-auth} (const char $\ast$username, const char $\ast$passwd, void $\ast$conn)
+\begin{DoxyCompactList}\small\item\em This function is for authentication based on teh username and password inputted by the user. \end{DoxyCompactList}\item 
+int \hyperlink{storage_8c_ac75689ee50898a2f6580c6489e886b59}{storage\-\_\-get} (const char $\ast$table, const char $\ast$key, struct \hyperlink{structstorage__record}{storage\-\_\-record} $\ast$record, void $\ast$conn)
+\begin{DoxyCompactList}\small\item\em This function is for users get the value from the storage server. \end{DoxyCompactList}\item 
+int \hyperlink{storage_8c_a8a42f72670cdcd7bf83416df1f1b090d}{storage\-\_\-set} (const char $\ast$table, const char $\ast$key, struct \hyperlink{structstorage__record}{storage\-\_\-record} $\ast$record, void $\ast$conn)
+\begin{DoxyCompactList}\small\item\em This function is for users set the value inside the storage server. \end{DoxyCompactList}\item 
+int \hyperlink{storage_8c_acd449536193542befbae2ff5e916f657}{storage\-\_\-disconnect} (void $\ast$conn)
+\begin{DoxyCompactList}\small\item\em This function is for disconnecting from the server. \end{DoxyCompactList}\item 
+int \hyperlink{storage_8c_af4e09b41d2bc5b8c25936fe952e748b2}{storage\-\_\-query} (const char $\ast$table, const char $\ast$predicates, char $\ast$$\ast$keys, const int max\-\_\-keys, void $\ast$conn)
+\begin{DoxyCompactList}\small\item\em This function is for querying databse for keys that fit. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{storage_8c_a29bf29a66f5ed979737e0abd1237d300}{int \hyperlink{storage_8c_a29bf29a66f5ed979737e0abd1237d300}{Connected} = 0}\label{storage_8c_a29bf29a66f5ed979737e0abd1237d300}
+
+\begin{DoxyCompactList}\small\item\em This is just a minimal stub implementation. You should modify it according to your design. \end{DoxyCompactList}\item 
+\hypertarget{storage_8c_acb455e0cf821a5a641ab4100c891e5df}{int \hyperlink{storage_8c_acb455e0cf821a5a641ab4100c891e5df}{Authenticated} = 0}\label{storage_8c_acb455e0cf821a5a641ab4100c891e5df}
+
+\begin{DoxyCompactList}\small\item\em Initializing the Authentication for indicating authenticate status, which will be used in the functions below. \end{DoxyCompactList}\item 
+F\-I\-L\-E $\ast$ \hyperlink{storage_8c_a702945180aa732857b380a007a7e2a21}{file}
+\begin{DoxyCompactList}\small\item\em Initializing a filestream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file contains the implementation of the storage server interface as specified in \hyperlink{storage_8h}{storage.\-h}. This \hyperlink{storage_8c}{storage.\-c} file is used by the client side, which includes several different functions. These functions have the following purposes, which include connect, authenticate, get, set and disconnect 
+
+Definition in file \hyperlink{storage_8c_source}{storage.\-c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{storage_8c_a27c35f95544a97bcfc19d15461ddf8c5}{\index{storage.\-c@{storage.\-c}!Modify\-String@{Modify\-String}}
+\index{Modify\-String@{Modify\-String}!storage.c@{storage.\-c}}
+\subsubsection[{Modify\-String}]{\setlength{\rightskip}{0pt plus 5cm}void Modify\-String (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{char\-\_\-source}
+\end{DoxyParamCaption}
+)}}\label{storage_8c_a27c35f95544a97bcfc19d15461ddf8c5}
+
+
+This function is used for removing spaces. 
+
+When a string be passed inside this function (use pass by parameter, the spaces inside this string will be get ridded.
+
+
+\begin{DoxyParams}{Parameters}
+{\em char\-\_\-source} & The string which contain spaces and waiting to be purified \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 54 of file storage.\-c.
+
+
+
+Referenced by storage\-\_\-query().
+
+\hypertarget{storage_8c_aa97b5545b3eefb5055a4e6febd375796}{\index{storage.\-c@{storage.\-c}!storage\-\_\-auth@{storage\-\_\-auth}}
+\index{storage\-\_\-auth@{storage\-\_\-auth}!storage.c@{storage.\-c}}
+\subsubsection[{storage\-\_\-auth}]{\setlength{\rightskip}{0pt plus 5cm}int storage\-\_\-auth (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{username, }
+\item[{const char $\ast$}]{passwd, }
+\item[{void $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}}\label{storage_8c_aa97b5545b3eefb5055a4e6febd375796}
+
+
+This function is for authentication based on teh username and password inputted by the user. 
+
+Authenticate the client's connection to the server.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Username} & The username inputted by the user  Passwd The password inputted by the user  This is a void pointer for connection purpose \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if successful, otherwise return -\/1 
+\end{DoxyReturn}
+
+
+Definition at line 131 of file storage.\-c.
+
+
+
+References Authenticated, E\-R\-R\-\_\-\-A\-U\-T\-H\-E\-N\-T\-I\-C\-A\-T\-I\-O\-N\-\_\-\-F\-A\-I\-L\-E\-D, E\-R\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-P\-A\-R\-A\-M, file, generate\-\_\-encrypted\-\_\-password(), L\-O\-G, logger(), M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N, recvline(), and sendall().
+
+
+
+Referenced by main().
+
+\hypertarget{storage_8c_abc3751ffba629aad5a4b8c7c22a75e11}{\index{storage.\-c@{storage.\-c}!storage\-\_\-connect@{storage\-\_\-connect}}
+\index{storage\-\_\-connect@{storage\-\_\-connect}!storage.c@{storage.\-c}}
+\subsubsection[{storage\-\_\-connect}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ storage\-\_\-connect (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{hostname, }
+\item[{const int}]{port}
+\end{DoxyParamCaption}
+)}}\label{storage_8c_abc3751ffba629aad5a4b8c7c22a75e11}
+
+
+This function is for connecting to the server from client side. 
+
+Establish a connection to the server.
+
+
+\begin{DoxyParams}{Parameters}
+{\em hostname} & The hostname inputted by the user \\
+\hline
+{\em port} & The port inputted by the user \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 76 of file storage.\-c.
+
+
+
+References Connected, E\-R\-R\-\_\-\-C\-O\-N\-N\-E\-C\-T\-I\-O\-N\-\_\-\-F\-A\-I\-L, E\-R\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-P\-A\-R\-A\-M, and M\-A\-X\-\_\-\-P\-O\-R\-T\-\_\-\-L\-E\-N.
+
+
+
+Referenced by main().
+
+\hypertarget{storage_8c_acd449536193542befbae2ff5e916f657}{\index{storage.\-c@{storage.\-c}!storage\-\_\-disconnect@{storage\-\_\-disconnect}}
+\index{storage\-\_\-disconnect@{storage\-\_\-disconnect}!storage.c@{storage.\-c}}
+\subsubsection[{storage\-\_\-disconnect}]{\setlength{\rightskip}{0pt plus 5cm}int storage\-\_\-disconnect (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}}\label{storage_8c_acd449536193542befbae2ff5e916f657}
+
+
+This function is for disconnecting from the server. 
+
+Close the connection to the server.
+
+
+\begin{DoxyParams}{Parameters}
+{\em conn} & This is a void pointer for connection purpose \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 488 of file storage.\-c.
+
+
+
+References Authenticated, E\-R\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-P\-A\-R\-A\-M, file, L\-O\-G, and logger().
+
+
+
+Referenced by main().
+
+\hypertarget{storage_8c_ac75689ee50898a2f6580c6489e886b59}{\index{storage.\-c@{storage.\-c}!storage\-\_\-get@{storage\-\_\-get}}
+\index{storage\-\_\-get@{storage\-\_\-get}!storage.c@{storage.\-c}}
+\subsubsection[{storage\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}int storage\-\_\-get (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{table, }
+\item[{const char $\ast$}]{key, }
+\item[{struct {\bf storage\-\_\-record} $\ast$}]{record, }
+\item[{void $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}}\label{storage_8c_ac75689ee50898a2f6580c6489e886b59}
+
+
+This function is for users get the value from the storage server. 
+
+Retrieve the value associated with a key in a table.
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & The name of the table \\
+\hline
+{\em key} & The name of the key \\
+\hline
+{\em record} & Containing the current record \\
+\hline
+{\em conn} & This is a void pointer for connection purpose \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if successful, otherwise return -\/1 
+\end{DoxyReturn}
+
+
+Definition at line 198 of file storage.\-c.
+
+
+
+References Authenticated, E\-R\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-P\-A\-R\-A\-M, E\-R\-R\-\_\-\-K\-E\-Y\-\_\-\-N\-O\-T\-\_\-\-F\-O\-U\-N\-D, E\-R\-R\-\_\-\-N\-O\-T\-\_\-\-A\-U\-T\-H\-E\-N\-T\-I\-C\-A\-T\-E\-D, E\-R\-R\-\_\-\-T\-A\-B\-L\-E\-\_\-\-N\-O\-T\-\_\-\-F\-O\-U\-N\-D, E\-R\-R\-\_\-\-U\-N\-K\-N\-O\-W\-N, file, L\-O\-G, logger(), M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N, storage\-\_\-record\-::metadata, recvline(), sendall(), and storage\-\_\-record\-::value.
+
+
+
+Referenced by main().
+
+\hypertarget{storage_8c_af4e09b41d2bc5b8c25936fe952e748b2}{\index{storage.\-c@{storage.\-c}!storage\-\_\-query@{storage\-\_\-query}}
+\index{storage\-\_\-query@{storage\-\_\-query}!storage.c@{storage.\-c}}
+\subsubsection[{storage\-\_\-query}]{\setlength{\rightskip}{0pt plus 5cm}int storage\-\_\-query (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{table, }
+\item[{const char $\ast$}]{predicates, }
+\item[{char $\ast$$\ast$}]{keys, }
+\item[{const int}]{max\-\_\-keys, }
+\item[{void $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}}\label{storage_8c_af4e09b41d2bc5b8c25936fe952e748b2}
+
+
+This function is for querying databse for keys that fit. 
+
+Query the table for records, and retrieve the matching keys.
+
+With the help of this function, the program can get the required data from the server, based on the predicates inputted by the user.
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & The table of records array \\
+\hline
+{\em predicates} & The conditions given by the user \\
+\hline
+{\em keys} & An array which makes strings as its elements, and used to match the predicates \\
+\hline
+{\em max\-\_\-keys} & The number of elements inside the array of string \char`\"{}keys\char`\"{}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If the function be executed successfully, the number of the matching elements is returned. Otherwise, a value of -\/1 is returned. 
+\end{DoxyReturn}
+
+
+Definition at line 536 of file storage.\-c.
+
+
+
+References Authenticated, E\-R\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-P\-A\-R\-A\-M, E\-R\-R\-\_\-\-N\-O\-T\-\_\-\-A\-U\-T\-H\-E\-N\-T\-I\-C\-A\-T\-E\-D, E\-R\-R\-\_\-\-T\-A\-B\-L\-E\-\_\-\-N\-O\-T\-\_\-\-F\-O\-U\-N\-D, E\-R\-R\-\_\-\-U\-N\-K\-N\-O\-W\-N, file, L\-O\-G, logger(), M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-S\-T\-R\-T\-Y\-P\-E\-\_\-\-S\-I\-Z\-E, Modify\-String(), Modify\-String2(), recvline(), and sendall().
+
+
+
+Referenced by main().
+
+\hypertarget{storage_8c_a8a42f72670cdcd7bf83416df1f1b090d}{\index{storage.\-c@{storage.\-c}!storage\-\_\-set@{storage\-\_\-set}}
+\index{storage\-\_\-set@{storage\-\_\-set}!storage.c@{storage.\-c}}
+\subsubsection[{storage\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}int storage\-\_\-set (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{table, }
+\item[{const char $\ast$}]{key, }
+\item[{struct {\bf storage\-\_\-record} $\ast$}]{record, }
+\item[{void $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}}\label{storage_8c_a8a42f72670cdcd7bf83416df1f1b090d}
+
+
+This function is for users set the value inside the storage server. 
+
+Store a key/value pair in a table.
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & The name of the table \\
+\hline
+{\em key} & The name of the key \\
+\hline
+{\em record} & The current record in struct \hyperlink{structstorage__record}{storage\-\_\-record} type \\
+\hline
+{\em conn} & This is a void pointer for connection purpose \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 348 of file storage.\-c.
+
+
+
+References Authenticated, E\-R\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-P\-A\-R\-A\-M, E\-R\-R\-\_\-\-N\-O\-T\-\_\-\-A\-U\-T\-H\-E\-N\-T\-I\-C\-A\-T\-E\-D, E\-R\-R\-\_\-\-T\-A\-B\-L\-E\-\_\-\-N\-O\-T\-\_\-\-F\-O\-U\-N\-D, E\-R\-R\-\_\-\-T\-R\-A\-N\-S\-A\-C\-T\-I\-O\-N\-\_\-\-A\-B\-O\-R\-T, E\-R\-R\-\_\-\-U\-N\-K\-N\-O\-W\-N, file, L\-O\-G, logger(), M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N, storage\-\_\-record\-::metadata, recvline(), sendall(), and storage\-\_\-record\-::value.
+
+
+
+Referenced by main().
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{storage_8c_a702945180aa732857b380a007a7e2a21}{\index{storage.\-c@{storage.\-c}!file@{file}}
+\index{file@{file}!storage.c@{storage.\-c}}
+\subsubsection[{file}]{\setlength{\rightskip}{0pt plus 5cm}F\-I\-L\-E$\ast$ file}}\label{storage_8c_a702945180aa732857b380a007a7e2a21}
+
+
+Initializing a filestream. 
+
+Building a filestream named file. 
+
+Definition at line 41 of file storage.\-c.
+
+
+
+Referenced by main(), read\-\_\-config(), storage\-\_\-auth(), storage\-\_\-disconnect(), storage\-\_\-get(), storage\-\_\-query(), and storage\-\_\-set().
+

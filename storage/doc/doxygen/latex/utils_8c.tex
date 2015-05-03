@@ -1,0 +1,290 @@
+\hypertarget{utils_8c}{\section{utils.\-c File Reference}
+\label{utils_8c}\index{utils.\-c@{utils.\-c}}
+}
+
+
+This file implements various utility functions that are can be used by the storage server and client library.  
+
+
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$sys/types.\-h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\-h$>$}\\*
+{\ttfamily \#include $<$unistd.\-h$>$}\\*
+{\ttfamily \#include $<$stdbool.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}utils.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{utils_8c_a2855c16c86a59784935881e20e7c8d0a}{Modify\-String2} (char $\ast$char\-\_\-source)
+\begin{DoxyCompactList}\small\item\em This function is used for removing spaces. \end{DoxyCompactList}\item 
+int \hyperlink{utils_8c_a1af021305f04b73e72fa310c2daf1f0a}{Testing\-String\-Correctness} (char $\ast$char\-\_\-array\-\_\-tested)
+\begin{DoxyCompactList}\small\item\em This function is used for testing the validity of the line. \end{DoxyCompactList}\item 
+int \hyperlink{utils_8c_a73c4a410d877b6a9358c547786f2102c}{sendall} (const int sock, const char $\ast$buf, const size\-\_\-t len)
+\begin{DoxyCompactList}\small\item\em This function is used for sending data through the socket. \end{DoxyCompactList}\item 
+int \hyperlink{utils_8c_ab126c8228ad72abbaed5f282709446ab}{recvline} (const int sock, char $\ast$buf, const size\-\_\-t buflen)
+\begin{DoxyCompactList}\small\item\em Receive an entire line from a socket. \end{DoxyCompactList}\item 
+int \hyperlink{utils_8c_a2459e03c24825dd78defd1023487af3e}{process\-\_\-config\-\_\-line} (char $\ast$line, struct \hyperlink{structconfig__params}{config\-\_\-params} $\ast$params)
+\begin{DoxyCompactList}\small\item\em Parse and process a line in the config file. \end{DoxyCompactList}\item 
+int \hyperlink{utils_8c_ae885a5871d260ab51ce6a9156f41f07e}{read\-\_\-config} (const char $\ast$config\-\_\-file, struct \hyperlink{structconfig__params}{config\-\_\-params} $\ast$params)
+\begin{DoxyCompactList}\small\item\em Read and load configuration parameters. \end{DoxyCompactList}\item 
+void \hyperlink{utils_8c_a9e4d8cb085fc7d5c9093ee102fa886d1}{logger} (F\-I\-L\-E $\ast$\hyperlink{utils_8h_a702945180aa732857b380a007a7e2a21}{file}, char $\ast$message)
+\begin{DoxyCompactList}\small\item\em Generates a log message. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{utils_8c_aa26d27a9072e93c052cb0c7fca7909f7}{generate\-\_\-encrypted\-\_\-password} (const char $\ast$passwd, const char $\ast$salt)
+\begin{DoxyCompactList}\small\item\em Generates an encrypted password string using salt C\-R\-Y\-P\-T\-\_\-\-S\-A\-L\-T. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file implements various utility functions that are can be used by the storage server and client library. Most of the functions in this file have different utilities, while can be used by server side or client side in order to connect with each other, send data, read configuration file, process configuration file and generate encrypted password for security purpose 
+
+Definition in file \hyperlink{utils_8c_source}{utils.\-c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{utils_8c_aa26d27a9072e93c052cb0c7fca7909f7}{\index{utils.\-c@{utils.\-c}!generate\-\_\-encrypted\-\_\-password@{generate\-\_\-encrypted\-\_\-password}}
+\index{generate\-\_\-encrypted\-\_\-password@{generate\-\_\-encrypted\-\_\-password}!utils.c@{utils.\-c}}
+\subsubsection[{generate\-\_\-encrypted\-\_\-password}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ generate\-\_\-encrypted\-\_\-password (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{passwd, }
+\item[{const char $\ast$}]{salt}
+\end{DoxyParamCaption}
+)}}\label{utils_8c_aa26d27a9072e93c052cb0c7fca7909f7}
+
+
+Generates an encrypted password string using salt C\-R\-Y\-P\-T\-\_\-\-S\-A\-L\-T. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em passwd} & Password before encryption. \\
+\hline
+{\em salt} & Salt used to encrypt the password. If N\-U\-L\-L default value D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-R\-Y\-P\-T\-\_\-\-S\-A\-L\-T is used. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns encrypted password. 
+\end{DoxyReturn}
+
+
+Definition at line 627 of file utils.\-c.
+
+
+
+References D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-R\-Y\-P\-T\-\_\-\-S\-A\-L\-T.
+
+
+
+Referenced by main(), and storage\-\_\-auth().
+
+\hypertarget{utils_8c_a9e4d8cb085fc7d5c9093ee102fa886d1}{\index{utils.\-c@{utils.\-c}!logger@{logger}}
+\index{logger@{logger}!utils.c@{utils.\-c}}
+\subsubsection[{logger}]{\setlength{\rightskip}{0pt plus 5cm}void logger (
+\begin{DoxyParamCaption}
+\item[{F\-I\-L\-E $\ast$}]{file, }
+\item[{char $\ast$}]{message}
+\end{DoxyParamCaption}
+)}}\label{utils_8c_a9e4d8cb085fc7d5c9093ee102fa886d1}
+
+
+Generates a log message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & The output stream \\
+\hline
+{\em message} & Message to log. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 611 of file utils.\-c.
+
+
+
+Referenced by main(), storage\-\_\-auth(), storage\-\_\-disconnect(), storage\-\_\-get(), storage\-\_\-query(), and storage\-\_\-set().
+
+\hypertarget{utils_8c_a2855c16c86a59784935881e20e7c8d0a}{\index{utils.\-c@{utils.\-c}!Modify\-String2@{Modify\-String2}}
+\index{Modify\-String2@{Modify\-String2}!utils.c@{utils.\-c}}
+\subsubsection[{Modify\-String2}]{\setlength{\rightskip}{0pt plus 5cm}void Modify\-String2 (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{char\-\_\-source}
+\end{DoxyParamCaption}
+)}}\label{utils_8c_a2855c16c86a59784935881e20e7c8d0a}
+
+
+This function is used for removing spaces. 
+
+When a string be passed inside this function ( pass by parameter), the spaces inside this string will be get removed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em char\-\_\-source} & The string which contain spaces about to be removed \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 34 of file utils.\-c.
+
+
+
+Referenced by process\-\_\-config\-\_\-line(), and storage\-\_\-query().
+
+\hypertarget{utils_8c_a2459e03c24825dd78defd1023487af3e}{\index{utils.\-c@{utils.\-c}!process\-\_\-config\-\_\-line@{process\-\_\-config\-\_\-line}}
+\index{process\-\_\-config\-\_\-line@{process\-\_\-config\-\_\-line}!utils.c@{utils.\-c}}
+\subsubsection[{process\-\_\-config\-\_\-line}]{\setlength{\rightskip}{0pt plus 5cm}int process\-\_\-config\-\_\-line (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{line, }
+\item[{struct {\bf config\-\_\-params} $\ast$}]{params}
+\end{DoxyParamCaption}
+)}}\label{utils_8c_a2459e03c24825dd78defd1023487af3e}
+
+
+Parse and process a line in the config file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em line} & Containing a line of strings \\
+\hline
+{\em params} & Containing the data taken from configuration file \\
+\hline
+\end{DoxyParams}
+char Column\-Name\-Array\mbox{[}M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N$\ast$\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}; ///\-For storing each column name inside char Column\-Type\-Array\mbox{[}M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N$\ast$\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}; ///\-For storing each column type inside
+
+printf(\char`\"{}column2\-: \%s \textbackslash{}n\textbackslash{}n\char`\"{}, token2); 
+
+Definition at line 141 of file utils.\-c.
+
+
+
+References config\-\_\-params\-::concurrency, M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E, M\-A\-X\-\_\-\-C\-O\-N\-F\-I\-G\-\_\-\-L\-I\-N\-E\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-S\-T\-R\-T\-Y\-P\-E\-\_\-\-S\-I\-Z\-E, M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S, Modify\-String2(), config\-\_\-params\-::password, config\-\_\-params\-::server\-\_\-host, config\-\_\-params\-::server\-\_\-port, Testing\-String\-Correctness(), and config\-\_\-params\-::username.
+
+
+
+Referenced by read\-\_\-config().
+
+\hypertarget{utils_8c_ae885a5871d260ab51ce6a9156f41f07e}{\index{utils.\-c@{utils.\-c}!read\-\_\-config@{read\-\_\-config}}
+\index{read\-\_\-config@{read\-\_\-config}!utils.c@{utils.\-c}}
+\subsubsection[{read\-\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}int read\-\_\-config (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{config\-\_\-file, }
+\item[{struct {\bf config\-\_\-params} $\ast$}]{params}
+\end{DoxyParamCaption}
+)}}\label{utils_8c_ae885a5871d260ab51ce6a9156f41f07e}
+
+
+Read and load configuration parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em config\-\_\-file} & The name of the configuration file. \\
+\hline
+{\em params} & The structure where config parameters are loaded. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 on success, -\/1 otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 558 of file utils.\-c.
+
+
+
+References file, M\-A\-X\-\_\-\-C\-O\-N\-F\-I\-G\-\_\-\-L\-I\-N\-E\-\_\-\-L\-E\-N, config\-\_\-params\-::password, process\-\_\-config\-\_\-line(), config\-\_\-params\-::server\-\_\-host, config\-\_\-params\-::server\-\_\-port, and config\-\_\-params\-::username.
+
+
+
+Referenced by main().
+
+\hypertarget{utils_8c_ab126c8228ad72abbaed5f282709446ab}{\index{utils.\-c@{utils.\-c}!recvline@{recvline}}
+\index{recvline@{recvline}!utils.c@{utils.\-c}}
+\subsubsection[{recvline}]{\setlength{\rightskip}{0pt plus 5cm}int recvline (
+\begin{DoxyParamCaption}
+\item[{const int}]{sock, }
+\item[{char $\ast$}]{buf, }
+\item[{const size\-\_\-t}]{buflen}
+\end{DoxyParamCaption}
+)}}\label{utils_8c_ab126c8228ad72abbaed5f282709446ab}
+
+
+Receive an entire line from a socket. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 on success, -\/1 otherwise
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em sock} & The socket which will be used \\
+\hline
+{\em buf} & A buffer for storing string inside \\
+\hline
+{\em buflen} & The length of the buffer \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 106 of file utils.\-c.
+
+
+
+Referenced by main(), storage\-\_\-auth(), storage\-\_\-get(), storage\-\_\-query(), and storage\-\_\-set().
+
+\hypertarget{utils_8c_a73c4a410d877b6a9358c547786f2102c}{\index{utils.\-c@{utils.\-c}!sendall@{sendall}}
+\index{sendall@{sendall}!utils.c@{utils.\-c}}
+\subsubsection[{sendall}]{\setlength{\rightskip}{0pt plus 5cm}int sendall (
+\begin{DoxyParamCaption}
+\item[{const int}]{sock, }
+\item[{const char $\ast$}]{buf, }
+\item[{const size\-\_\-t}]{len}
+\end{DoxyParamCaption}
+)}}\label{utils_8c_a73c4a410d877b6a9358c547786f2102c}
+
+
+This function is used for sending data through the socket. 
+
+Keep sending the contents of the buffer until complete.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sock} & The socket number \\
+\hline
+{\em buf} & The buf for characters \\
+\hline
+{\em len} & The length of the characters with type const size\-\_\-t \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 80 of file utils.\-c.
+
+
+
+Referenced by storage\-\_\-auth(), storage\-\_\-get(), storage\-\_\-query(), and storage\-\_\-set().
+
+\hypertarget{utils_8c_a1af021305f04b73e72fa310c2daf1f0a}{\index{utils.\-c@{utils.\-c}!Testing\-String\-Correctness@{Testing\-String\-Correctness}}
+\index{Testing\-String\-Correctness@{Testing\-String\-Correctness}!utils.c@{utils.\-c}}
+\subsubsection[{Testing\-String\-Correctness}]{\setlength{\rightskip}{0pt plus 5cm}int Testing\-String\-Correctness (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{char\-\_\-array\-\_\-tested}
+\end{DoxyParamCaption}
+)}}\label{utils_8c_a1af021305f04b73e72fa310c2daf1f0a}
+
+
+This function is used for testing the validity of the line. 
+
+This function is used for testing whether a string has a right format
+
+
+\begin{DoxyParams}{Parameters}
+{\em char\-\_\-array\-\_\-tested} & The string to be tested \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 57 of file utils.\-c.
+
+
+
+Referenced by process\-\_\-config\-\_\-line().
+

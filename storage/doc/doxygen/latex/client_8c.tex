@@ -1,0 +1,83 @@
+\hypertarget{client_8c}{\section{client.\-c File Reference}
+\label{client_8c}\index{client.\-c@{client.\-c}}
+}
+
+
+This file is used to generate a client shell, which is used to connect to the server part.  
+
+
+{\ttfamily \#include $<$errno.\-h$>$}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}storage.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$time.\-h$>$}\\*
+{\ttfamily \#include $<$sys/time.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}utils.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}logger.\-h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{client_8c_ab3bf235f1bc8272a385995a523958da2}{\#define \hyperlink{client_8c_ab3bf235f1bc8272a385995a523958da2}{M\-A\-X\-\_\-\-C\-E\-N\-S\-U\-S\-\_\-\-C\-I\-T\-Y\-\_\-\-N\-U\-M}~692}\label{client_8c_ab3bf235f1bc8272a385995a523958da2}
+
+\begin{DoxyCompactList}\small\item\em The maximum city number in census part. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{client_8c_a823ea1957453ac6f80e03bc81f3094bd}{Print\-Value} (char $\ast$the\-\_\-label)
+\begin{DoxyCompactList}\small\item\em Start a client to interact with the storage server. \end{DoxyCompactList}\item 
+int \hyperlink{client_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file is used to generate a client shell, which is used to connect to the server part. The client connects to the server, running at S\-E\-R\-V\-E\-R\-H\-O\-S\-T\-:S\-E\-R\-V\-E\-R\-P\-O\-R\-T and performs a number of storage\-\_\-$\ast$ operations. If there are errors, the client exits. 
+
+Definition in file \hyperlink{client_8c_source}{client.\-c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{client_8c_a0ddf1224851353fc92bfbff6f499fa97}{\index{client.\-c@{client.\-c}!main@{main}}
+\index{main@{main}!client.c@{client.\-c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{client_8c_a0ddf1224851353fc92bfbff6f499fa97}
+selection\mbox{[}0\mbox{]} = '\textbackslash{}0'; 
+
+Definition at line 50 of file client.\-c.
+
+
+
+References Authenticated, file, M\-A\-X\-\_\-\-C\-E\-N\-S\-U\-S\-\_\-\-C\-I\-T\-Y\-\_\-\-N\-U\-M, M\-A\-X\-\_\-\-R\-E\-C\-O\-R\-D\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E, M\-A\-X\-\_\-\-S\-T\-R\-T\-Y\-P\-E\-\_\-\-S\-I\-Z\-E, M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N, storage\-\_\-record\-::metadata, storage\-\_\-auth(), storage\-\_\-connect(), storage\-\_\-disconnect(), storage\-\_\-get(), storage\-\_\-query(), storage\-\_\-set(), and storage\-\_\-record\-::value.
+
+\hypertarget{client_8c_a823ea1957453ac6f80e03bc81f3094bd}{\index{client.\-c@{client.\-c}!Print\-Value@{Print\-Value}}
+\index{Print\-Value@{Print\-Value}!client.c@{client.\-c}}
+\subsubsection[{Print\-Value}]{\setlength{\rightskip}{0pt plus 5cm}void Print\-Value (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{the\-\_\-label}
+\end{DoxyParamCaption}
+)}}\label{client_8c_a823ea1957453ac6f80e03bc81f3094bd}
+
+
+Start a client to interact with the storage server. 
+
+If connect is successful, the client performs a storage\-\_\-set/get() on T\-A\-B\-L\-E and K\-E\-Y and outputs the results on stdout. Finally, it exists after disconnecting from the server.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & The number of strings pointed to by argv \\
+\hline
+{\em argv\mbox{[}$\,$\mbox{]}} & An array of pointers to characters\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 when we want to exit the main function 
+\end{DoxyReturn}
+
+
+Definition at line 45 of file client.\-c.
+

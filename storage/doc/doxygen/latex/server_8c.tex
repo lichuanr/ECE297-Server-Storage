@@ -1,0 +1,191 @@
+\hypertarget{server_8c}{\section{server.\-c File Reference}
+\label{server_8c}\index{server.\-c@{server.\-c}}
+}
+
+
+This file implements the storage server.  
+
+
+{\ttfamily \#include $<$pthread.\-h$>$}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$unistd.\-h$>$}\\*
+{\ttfamily \#include $<$sys/types.\-h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\-h$>$}\\*
+{\ttfamily \#include $<$sys/time.\-h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\-h$>$}\\*
+{\ttfamily \#include $<$netdb.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$assert.\-h$>$}\\*
+{\ttfamily \#include $<$signal.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}utils.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$time.\-h$>$}\\*
+{\ttfamily \#include $<$ctype.\-h$>$}\\*
+{\ttfamily \#include $<$stdbool.\-h$>$}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structstring}{string}
+\begin{DoxyCompactList}\small\item\em This is the declaration of the struct string, which is used for holding value data inside. \end{DoxyCompactList}\item 
+struct \hyperlink{structthread__data}{thread\-\_\-data}
+\begin{DoxyCompactList}\small\item\em Process a command from the client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{server_8c_a7186273cd88640b740b6333cd98ae243}{\#define \hyperlink{server_8c_a7186273cd88640b740b6333cd98ae243}{M\-A\-X\-\_\-\-C\-O\-N\-F\-I\-G\-\_\-\-L\-I\-N\-E\-\_\-\-L\-E\-N}~1024}\label{server_8c_a7186273cd88640b740b6333cd98ae243}
+
+\begin{DoxyCompactList}\small\item\em Max characters in each config file line. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a6c4647395896246d6710ba980c31666c}{\#define \hyperlink{server_8c_a6c4647395896246d6710ba980c31666c}{M\-A\-X\-\_\-\-U\-S\-E\-R\-N\-A\-M\-E\-\_\-\-L\-E\-N}~64}\label{server_8c_a6c4647395896246d6710ba980c31666c}
+
+\begin{DoxyCompactList}\small\item\em Max characters of server username. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_aa13f93b74a500b0fd36cf2fd2fa5f30b}{\#define \hyperlink{server_8c_aa13f93b74a500b0fd36cf2fd2fa5f30b}{M\-A\-X\-\_\-\-E\-N\-C\-\_\-\-P\-A\-S\-S\-W\-O\-R\-D\-\_\-\-L\-E\-N}~64}\label{server_8c_aa13f93b74a500b0fd36cf2fd2fa5f30b}
+
+\begin{DoxyCompactList}\small\item\em Max characters of server's encrypted password. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_aa746ad89d7f59a152f37e3529057bd58}{\#define \hyperlink{server_8c_aa746ad89d7f59a152f37e3529057bd58}{M\-A\-X\-\_\-\-H\-O\-S\-T\-\_\-\-L\-E\-N}~64}\label{server_8c_aa746ad89d7f59a152f37e3529057bd58}
+
+\begin{DoxyCompactList}\small\item\em Max characters of server hostname. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a374d6c9cec689b490a1c753145379723}{\#define \hyperlink{server_8c_a374d6c9cec689b490a1c753145379723}{M\-A\-X\-\_\-\-P\-O\-R\-T\-\_\-\-L\-E\-N}~8}\label{server_8c_a374d6c9cec689b490a1c753145379723}
+
+\begin{DoxyCompactList}\small\item\em Max characters of server port. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_abdd33f362ae3bbdacb5de76473aa8a2f}{\#define \hyperlink{server_8c_abdd33f362ae3bbdacb5de76473aa8a2f}{M\-A\-X\-\_\-\-P\-A\-T\-H\-\_\-\-L\-E\-N}~256}\label{server_8c_abdd33f362ae3bbdacb5de76473aa8a2f}
+
+\begin{DoxyCompactList}\small\item\em Max characters of data directory path. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a6f4cdd0162e9f2ab251fa5b23410c8da}{\#define \hyperlink{server_8c_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}~100}\label{server_8c_a6f4cdd0162e9f2ab251fa5b23410c8da}
+
+\begin{DoxyCompactList}\small\item\em Max tables supported by the server. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_ad02d7128cbc04a5ec5ee79c6beb66730}{\#define \hyperlink{server_8c_ad02d7128cbc04a5ec5ee79c6beb66730}{M\-A\-X\-\_\-\-R\-E\-C\-O\-R\-D\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}~1000}\label{server_8c_ad02d7128cbc04a5ec5ee79c6beb66730}
+
+\begin{DoxyCompactList}\small\item\em Max records per table. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_ae7854bc280576d57ec5c80995d5ea94c}{\#define \hyperlink{server_8c_ae7854bc280576d57ec5c80995d5ea94c}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-\_\-\-L\-E\-N}~20}\label{server_8c_ae7854bc280576d57ec5c80995d5ea94c}
+
+\begin{DoxyCompactList}\small\item\em Max characters of a table name. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_ad91bfaf106e42aa552f1605c5b8a9ef2}{\#define \hyperlink{server_8c_ad91bfaf106e42aa552f1605c5b8a9ef2}{M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N}~20}\label{server_8c_ad91bfaf106e42aa552f1605c5b8a9ef2}
+
+\begin{DoxyCompactList}\small\item\em Max characters of a key name. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a053b7859476cc9867ec62c49e68d3fa1}{\#define \hyperlink{server_8c_a053b7859476cc9867ec62c49e68d3fa1}{M\-A\-X\-\_\-\-C\-O\-N\-N\-E\-C\-T\-I\-O\-N\-S}~10}\label{server_8c_a053b7859476cc9867ec62c49e68d3fa1}
+
+\begin{DoxyCompactList}\small\item\em Max simultaneous client connections. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a2c806bc7de304d1d07bb12c9d58dbdd1}{\#define \hyperlink{server_8c_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}~10}\label{server_8c_a2c806bc7de304d1d07bb12c9d58dbdd1}
+
+\begin{DoxyCompactList}\small\item\em Max columns per table. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a5cced553ee7679aebe25952d79c7b86b}{\#define \hyperlink{server_8c_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}~20}\label{server_8c_a5cced553ee7679aebe25952d79c7b86b}
+
+\begin{DoxyCompactList}\small\item\em Max characters of a column name. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_ab9cbe6531d78ffac767508924ec1b5ac}{\#define \hyperlink{server_8c_ab9cbe6531d78ffac767508924ec1b5ac}{M\-A\-X\-\_\-\-S\-T\-R\-T\-Y\-P\-E\-\_\-\-S\-I\-Z\-E}~40}\label{server_8c_ab9cbe6531d78ffac767508924ec1b5ac}
+
+\begin{DoxyCompactList}\small\item\em Max S\-I\-Z\-E of string types. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a00a29850f2b5b985f776f864d83e5ac3}{\#define \hyperlink{server_8c_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}~800}\label{server_8c_a00a29850f2b5b985f776f864d83e5ac3}
+
+\begin{DoxyCompactList}\small\item\em Max characters of a value. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a36b090ddf192f97d9fecf8ff5a98996e}{\#define \hyperlink{server_8c_a36b090ddf192f97d9fecf8ff5a98996e}{M\-A\-X\-\_\-\-L\-I\-S\-T\-E\-N\-Q\-U\-E\-U\-E\-L\-E\-N}~20}\label{server_8c_a36b090ddf192f97d9fecf8ff5a98996e}
+
+\begin{DoxyCompactList}\small\item\em The maximum number of queued connections. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a24a31f60b063af0e662125ea2427b140}{\#define {\bfseries L\-O\-G\-G\-I\-N\-G}~0}\label{server_8c_a24a31f60b063af0e662125ea2427b140}
+
+\item 
+\hypertarget{server_8c_ab3bf235f1bc8272a385995a523958da2}{\#define \hyperlink{server_8c_ab3bf235f1bc8272a385995a523958da2}{M\-A\-X\-\_\-\-C\-E\-N\-S\-U\-S\-\_\-\-C\-I\-T\-Y\-\_\-\-N\-U\-M}~693}\label{server_8c_ab3bf235f1bc8272a385995a523958da2}
+
+\begin{DoxyCompactList}\small\item\em The maximum city numbers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{server_8c_aa07ff35f43557c90efda9d4f0c8618b9}{Testing\-Char\-Array} (const char $\ast$chararray)
+\begin{DoxyCompactList}\small\item\em Check whether a string is actually a valid integer. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a0f014244305d328266edf001b968210a}{void {\bfseries Modify\-String3} (char $\ast$char\-\_\-source)}\label{server_8c_a0f014244305d328266edf001b968210a}
+
+\item 
+\hypertarget{server_8c_afbef654aaa81df7046308fcdcbd621bc}{void $\ast$ {\bfseries handle\-\_\-client} (void $\ast$data)}\label{server_8c_afbef654aaa81df7046308fcdcbd621bc}
+
+\item 
+\hypertarget{server_8c_ac6afaac731bcb616bb49abd7483a8344}{int {\bfseries handle\-\_\-command} (F\-I\-L\-E $\ast$file1, int sock, char $\ast$cmd, struct \hyperlink{structconfig__params}{config\-\_\-params} params)}\label{server_8c_ac6afaac731bcb616bb49abd7483a8344}
+
+\item 
+int \hyperlink{server_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Start the storage server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{server_8c_ae6130aceb334102f0d03a24b11208d75}{struct \hyperlink{structstring}{string} \hyperlink{server_8c_ae6130aceb334102f0d03a24b11208d75}{Table\-Of\-Data} \mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_ad02d7128cbc04a5ec5ee79c6beb66730}{M\-A\-X\-\_\-\-R\-E\-C\-O\-R\-D\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}11\mbox{]}}\label{server_8c_ae6130aceb334102f0d03a24b11208d75}
+
+\begin{DoxyCompactList}\small\item\em This initialization declares a struct, which is used for holding table of data. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_ae252a9dc99a6b04e4937ac0f42eee1c8}{struct \hyperlink{structstring}{string} \hyperlink{server_8c_ae252a9dc99a6b04e4937ac0f42eee1c8}{Query\-Holder} \mbox{[}\hyperlink{storage_8h_ad02d7128cbc04a5ec5ee79c6beb66730}{M\-A\-X\-\_\-\-R\-E\-C\-O\-R\-D\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}+1\mbox{]}}\label{server_8c_ae252a9dc99a6b04e4937ac0f42eee1c8}
+
+\begin{DoxyCompactList}\small\item\em This initialization declares a struct, which is used for holding query. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a4ab5da83d83172878248fabd78b03f60}{struct \hyperlink{structstring}{string} \hyperlink{server_8c_a4ab5da83d83172878248fabd78b03f60}{Query\-Result\-Holder} \mbox{[}\hyperlink{storage_8h_ad02d7128cbc04a5ec5ee79c6beb66730}{M\-A\-X\-\_\-\-R\-E\-C\-O\-R\-D\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}+1\mbox{]}}\label{server_8c_a4ab5da83d83172878248fabd78b03f60}
+
+\begin{DoxyCompactList}\small\item\em This initialization declares a struct, which is used for holding the result of the query. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_aa4d4cb4c15401b273e52a88a68e16190}{int long \hyperlink{server_8c_aa4d4cb4c15401b273e52a88a68e16190}{total\-\_\-processing\-\_\-time} = 0}\label{server_8c_aa4d4cb4c15401b273e52a88a68e16190}
+
+\begin{DoxyCompactList}\small\item\em This initialization is for counting the total processing time. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a095f13c06d99c76d04c03c046fa34ec9}{struct \hyperlink{structthread__data}{thread\-\_\-data} {\bfseries thread\-\_\-data\-\_\-array} \mbox{[}\hyperlink{storage_8h_a053b7859476cc9867ec62c49e68d3fa1}{M\-A\-X\-\_\-\-C\-O\-N\-N\-E\-C\-T\-I\-O\-N\-S}\mbox{]}}\label{server_8c_a095f13c06d99c76d04c03c046fa34ec9}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file implements the storage server. The storage server should be named \char`\"{}server\char`\"{} and should take a single command line argument that refers to the configuration file.
+
+The storage server should be able to communicate with the client library functions declared in \hyperlink{storage_8h}{storage.\-h} and implemented in \hyperlink{storage_8c}{storage.\-c}. 
+
+Definition in file \hyperlink{server_8c_source}{server.\-c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{server_8c_a0ddf1224851353fc92bfbff6f499fa97}{\index{server.\-c@{server.\-c}!main@{main}}
+\index{main@{main}!server.c@{server.\-c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Start the storage server. 
+
+This is the main entry point for the storage server. It reads the configuration file, starts listening on a port, and proccesses commands from clients.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & The number of strings pointed to by argv \\
+\hline
+{\em argv\mbox{[}$\,$\mbox{]}} & An array of pointers to characters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return E\-X\-I\-T\-\_\-\-S\-U\-C\-C\-E\-S\-S if we can exit successfully 
+\end{DoxyReturn}
+
+
+Definition at line 1057 of file server.\-c.
+
+
+
+References config\-\_\-params\-::concurrency, L\-O\-G, logger(), M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E, M\-A\-X\-\_\-\-C\-O\-N\-N\-E\-C\-T\-I\-O\-N\-S, M\-A\-X\-\_\-\-L\-I\-S\-T\-E\-N\-Q\-U\-E\-U\-E\-L\-E\-N, M\-A\-X\-\_\-\-R\-E\-C\-O\-R\-D\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E, M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S, read\-\_\-config(), recvline(), config\-\_\-params\-::server\-\_\-host, config\-\_\-params\-::server\-\_\-port, and Table\-Of\-Data.
+
+\hypertarget{server_8c_aa07ff35f43557c90efda9d4f0c8618b9}{\index{server.\-c@{server.\-c}!Testing\-Char\-Array@{Testing\-Char\-Array}}
+\index{Testing\-Char\-Array@{Testing\-Char\-Array}!server.c@{server.\-c}}
+\subsubsection[{Testing\-Char\-Array}]{\setlength{\rightskip}{0pt plus 5cm}bool Testing\-Char\-Array (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{chararray}
+\end{DoxyParamCaption}
+)}}\label{server_8c_aa07ff35f43557c90efda9d4f0c8618b9}
+
+
+Check whether a string is actually a valid integer. 
+
+In this function, we handle negative numbers first, then check whether the string is a valid integer or not. If is an integer, return true, otherwise return false
+
+
+\begin{DoxyParams}{Parameters}
+{\em chararray} & The string to be tested \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return true if it is integer 
+\end{DoxyReturn}
+
+
+Definition at line 67 of file server.\-c.
+

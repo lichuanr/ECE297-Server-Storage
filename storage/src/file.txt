@@ -1,0 +1,16 @@
+Server on localhost:1119
+Got a connection from 127.0.0.1:57238.
+Server on localhost:1119
+Got a connection from 127.0.0.1:58006.
+Processing command 'AUTH admin xxxnq.BMCifhU'
+Got a connection from 127.0.0.1:58006.
+Server on localhost:1119
+Got a connection from 127.0.0.1:59286.
+Processing command 'AUTH admin xxxnq.BMCifhU'
+Got a connection from 127.0.0.1:59286.
+Got a connection from 127.0.0.1:59542.
+Processing command 'AUTH admin xxxnq.BMCifhU'
+Got a connection from 127.0.0.1:59542.
+Got a connection from 127.0.0.1:60054.
+Processing command 'AUTH admin xxxnq.BMCifhU'
+Got a connection from 127.0.0.1:60054.
